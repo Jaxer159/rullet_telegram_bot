@@ -10,6 +10,10 @@ dp = Dispatcher(bot)
 async def ping_command(message: types.Message):
     await message.reply("Я работаю!")
 
+@dp.message_handler(commands=['start'])
+async def ping_command(message: types.Message):
+    await message.reply("Привет!. Чтобы посмотреть что я умею \n/help")
+
 
 
 if __name__ == '__main__':
