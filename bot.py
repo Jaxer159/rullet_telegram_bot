@@ -14,6 +14,10 @@ async def ping_command(message: types.Message):
 async def ping_command(message: types.Message):
     await message.reply("Привет!. Чтобы посмотреть что я умею \n/help")
 
+@dp.message_handler(commands=['chat_id'])
+async def chat_id_command(message: types.Message):
+    await message.reply("ID этого чата: \n" + "`" + str(message.chat.id) + "`", parse_mode='MarkdownV2')
+
 @dp.message_handler(commands=['id'])
 async def id_command(message: types.Message):
     await message.reply("ID пользователя " + str(message.from_user.first_name) + ":\n" + "`" + str(message.from_user.id) + "`", parse_mode='MarkdownV2')
