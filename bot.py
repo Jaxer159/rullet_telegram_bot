@@ -1,10 +1,27 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
+import os
 from api_token import API_TOKEN
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
+
+@dp.message_handler(commands=['reg'])
+async def reg_command(message: types.Message):
+    if str(message.from_user.username) == "None":
+        await message.reply("Поставь сначало себе username, а после напиши еще раз \n/reg")
+    else:
+        path = "data/balance/" + str(message.from_user.username)
+        if os.path.isdir(path) == True:
+            await message.reply("Ты уже зарегистрировался!")
+        else:
+            balance = str(path) + "/balance.txt"
+            os.mkdir(path)
+            file = open(balance, "tw")
+            file.write("1000")
+            file.close()
+            await message.reply("Ты успешно зарегистрировался!")
 
 @dp.message_handler(commands=['ping'])
 async def ping_command(message: types.Message):
