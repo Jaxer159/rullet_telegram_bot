@@ -2,6 +2,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 import os
+import random
 from api_token import API_TOKEN
 
 bot = Bot(token=API_TOKEN)
@@ -38,6 +39,12 @@ async def reg_command(message: types.Message):
 @dp.message_handler(commands=['ping'])
 async def ping_command(message: types.Message):
     await message.reply("Я работаю!")
+
+@dp.message_handler(commands=['gay'])
+async def gay_command(message: types.Message):
+	gay_list = ["10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"]
+	gay = random.choice(gay_list)
+	await message.reply("Ты гей на " + str(gay))
 
 @dp.message_handler(commands=['start'])
 async def ping_command(message: types.Message):
