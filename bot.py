@@ -9,7 +9,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['balance'])
 async def balance_command(message: types.Message):
-	path = "data/balance/" + str(message.from_user.username)
+	path = "data/" + str(message.from_user.username)
 	if os.path.isdir(path) == True:
 		balance = str(path) + "/balance.txt"
 		file = open(balance, "r")
@@ -24,7 +24,7 @@ async def reg_command(message: types.Message):
     if str(message.from_user.username) == "None":
         await message.reply("Поставь сначало себе username, а после напиши еще раз \n/reg")
     else:
-        path = "data/balance/" + str(message.from_user.username)
+        path = "data/" + str(message.from_user.username)
         if os.path.isdir(path) == True:
             await message.reply("Ты уже зарегистрировался!")
         else:
