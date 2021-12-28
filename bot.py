@@ -7,6 +7,18 @@ from api_token import API_TOKEN
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
+@dp.message_handler(commands=['balance'])
+async def balance_command(message: types.Message):
+	path = "data/balance/" + str(message.from_user.username)
+	if os.path.isdir(path) == True:
+		balance = str(path) + "/balance.txt"
+		file = open(balance, "r")
+		my_money = file.read()
+		file.close()
+		await message.reply("Баланс: " + str(my_money))
+	else:
+		await message.reply("Сначала зарегистрируйся!\n/reg")
+
 @dp.message_handler(commands=['reg'])
 async def reg_command(message: types.Message):
     if str(message.from_user.username) == "None":
