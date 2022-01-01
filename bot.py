@@ -40,6 +40,12 @@ async def reg_command(message: types.Message):
 async def ping_command(message: types.Message):
     await message.reply("Я работаю!")
 
+@dp.message_handler(commands=['flip_coin'])
+async def flip_coin_command(message: types.Message):
+	flip_coin = ["Орёл.", "Решка."]
+	coin = random.choice(flip_coin)
+	await message.reply(str(coin))
+
 @dp.message_handler(commands=['gay'])
 async def gay_command(message: types.Message):
 	gay_list = ["10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"]
