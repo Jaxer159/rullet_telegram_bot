@@ -44,7 +44,7 @@ async def ping_command(message: types.Message):
 async def flip_coin_command(message: types.Message):
 	flip_coin = ["Орёл.", "Решка."]
 	coin = random.choice(flip_coin)
-	await message.reply("**" + str(coin) + "**", parse_mode='MarkdownV2')
+	await message.reply(str(coin))
 
 @dp.message_handler(commands=['gay'])
 async def gay_command(message: types.Message):
