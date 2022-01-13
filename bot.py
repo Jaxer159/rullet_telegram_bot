@@ -8,6 +8,37 @@ from api_token import API_TOKEN
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
+@dp.message_handler(commands=['rullet'])
+async def rullet_command(message: types.Message):
+	path = "data/" + str(message.from_user.username)
+	if os.path.isdir(path) == True:
+		balance = str(path) + "/balance.txt"
+		file = open(balance, "r")
+		my_money = file.read()
+		file.close()
+		if int(my_money) > 100:
+			rullet = random.randint(1,3)
+			if rullet == 1:
+				win_money_list = ["50", "100", "150"]
+				win_money = random.choice(win_money_list)
+				file = open(balance, "tw")
+				money = int(my_money) + int(win_money)
+				file.write(str(money))
+				file.close()
+				await message.reply("Поздравляю ты выиграл " + str(win_money))
+			else:
+				lose_money_list = ["50", "100"]
+				lose_money = random.choice(lose_money_list)
+				file = open(balance, "tw")
+				money = int(my_money) - int(lose_money)
+				file.write(str(money))
+				file.close()
+				await message.reply("Ты проиграл " + str(lose_money))
+		else:
+			await message.reply("Недостаточно средств.")
+	else:
+		await message.reply("Сначала зарегистрируйся!\n/reg")
+
 @dp.message_handler(commands=['balance'])
 async def balance_command(message: types.Message):
 	path = "data/" + str(message.from_user.username)
