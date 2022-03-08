@@ -3,6 +3,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 import os
 import random
+import shutil
 from api_token import API_TOKEN
 
 bot = Bot(token=API_TOKEN)
@@ -12,7 +13,7 @@ dp = Dispatcher(bot)
 async def delete_account_command(message: types.Message):
 	path = "data/" + str(message.from_user.username)
 	if os.path.isdir(path) == True:
-		os.rmdir(path)
+		shutil.rmtree(path)
 		await message.reply("Ваш аккаунт удален")
 	else:
 		await message.reply("Сначала зарегистрируйся!\n/reg")
