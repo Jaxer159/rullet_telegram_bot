@@ -8,6 +8,15 @@ from api_token import API_TOKEN
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
+@dp.message_handler(commands=['delete_account'])
+async def delete_account_command(message: types.Message):
+	path = "data/" + str(message.from_user.username)
+	if os.path.isdir(path) == True:
+		os.rmdir(path)
+		await message.reply("Ваш аккаунт удален")
+	else:
+		await message.reply("Сначала зарегистрируйся!\n/reg")
+
 @dp.message_handler(commands=['rullet'])
 async def rullet_command(message: types.Message):
 	path = "data/" + str(message.from_user.username)
